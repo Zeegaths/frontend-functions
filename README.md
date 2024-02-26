@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a mini dapp that interacts with the blockchain. It has three functins, a balance, deposit and withdraw. All of this functions are updated in realtime.
+This is a mini dapp that interacts with the blockchain. It has three functions, a balance, deposit and withdraw. All of this functions are updated in realtime.
 
 ## Get Started
 

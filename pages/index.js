@@ -7,8 +7,10 @@ export default function HomePage() {
   const [account, setAccount] = useState(undefined);
   const [atm, setATM] = useState(undefined);
   const [balance, setBalance] = useState(undefined);
+  const [owner, setOwner] = useState("");
+  const [address, setAddress] = useState("");
 
-  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+  const contractAddress = "0x0165878A594ca255338adfa4d48449f69242Eb8F";
   const atmABI = atm_abi.abi;
 
   const getWallet = async() => {
@@ -26,6 +28,7 @@ export default function HomePage() {
     if (account) {
       console.log ("Account connected: ", account);
       setAccount(account);
+      // setAddress(address);
     }
     else {
       console.log("No account found");
@@ -67,6 +70,21 @@ export default function HomePage() {
     }
   }
 
+  const getOwner = async() => {
+    if (atm) {
+      setOwner(await atm.getOwner());
+    }
+  }
+
+  const transferOwnership = async() => {
+      if (atm) {
+        let tx = await atm.transferOwnership(address);
+        console.log(owner)
+        await tx.wait();
+        // getOwner();
+      }
+  }
+
   const withdraw = async() => {
     if (atm) {
       let tx = await atm.withdraw(1);
@@ -96,6 +114,12 @@ export default function HomePage() {
         <p>Your Balance: {balance} ETH</p>
         <button onClick={deposit}>Deposit 1 ETH</button>
         <button onClick={withdraw}>Withdraw 1 ETH</button>
+        <div>
+          <input type="text" placeholder="new owner address" onChange={(e) => setAddress(e.target.value) }/>
+          <button onClick={transferOwnership}>Submit</button>
+        </div>
+        <button onClick={getOwner}>Owner</button>
+        <p>New owner: {owner}</p>
       </div>
     )
   }
@@ -121,6 +145,11 @@ export default function HomePage() {
           padding: 20px;
           border-radius: 40px;
           box-shadow: 10px 10px -20px black;
+        }
+        input{
+          padding: 20px;
+          border-radius: 13px;
+          border: 0;
         }
         button {
           background-color: #333;

@@ -7,7 +7,7 @@
 const hre = require("hardhat");
 
 async function main() {
-  const initBalance = 1;
+  const initBalance = 10;
   const Task = await hre.ethers.getContractFactory("Task");
   const task = await Task.deploy(initBalance);
   await task.deployed();

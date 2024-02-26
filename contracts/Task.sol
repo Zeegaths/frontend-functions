@@ -55,4 +55,13 @@ contract Task {
         // emit the event
         emit Withdraw(_withdrawAmount);
     }
+
+     function transferOwnership(address payable _newOwner) public {
+        require(msg.sender == owner, "You are not the owner of this account");
+        owner = _newOwner;
+    }
+
+    function getOwner() external view returns(address) {
+        return owner;
+    }
 }
